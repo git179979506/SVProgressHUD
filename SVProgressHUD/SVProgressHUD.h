@@ -18,21 +18,31 @@ extern NSString * _Nonnull const SVProgressHUDDidAppearNotification;
 extern NSString * _Nonnull const SVProgressHUDStatusUserInfoKey;
 
 typedef NS_ENUM(NSInteger, SVProgressHUDStyle) {
+    /// 默认风格，黑色文字的白色HUD，HUD背景将会模糊
     SVProgressHUDStyleLight,        // default style, white HUD with black text, HUD background will be blurred
+    /// 黑色HUD和白色文字，HUD背景将会模糊
     SVProgressHUDStyleDark,         // black HUD and white text, HUD background will be blurred
+    /// 使用前景和背景颜色属性
     SVProgressHUDStyleCustom        // uses the fore- and background color properties
 };
 
 typedef NS_ENUM(NSUInteger, SVProgressHUDMaskType) {
+    /// 默认遮罩类型，允许用户在显示HUD时进行交互
     SVProgressHUDMaskTypeNone = 1,  // default mask type, allow user interactions while HUD is displayed
+    /// 不允许用户与背景对象交互
     SVProgressHUDMaskTypeClear,     // don't allow user interactions with background objects
+    /// 不允许用户与背景对象进行交互并将HUD背后的UI变暗（如iOS 7和更高版本所示）
     SVProgressHUDMaskTypeBlack,     // don't allow user interactions with background objects and dim the UI in the back of the HUD (as seen in iOS 7 and above)
+    /// 不允许用户与背景对象进行交互，并使用a-la UIAlertView背景渐变将UI变暗（如iOS 6中所示）
     SVProgressHUDMaskTypeGradient,  // don't allow user interactions with background objects and dim the UI with a a-la UIAlertView background gradient (as seen in iOS 6)
+    /// 不允许用户与背景对象进行交互，并使用自定义颜色对HUD背面的UI进行调光
     SVProgressHUDMaskTypeCustom     // don't allow user interactions with background objects and dim the UI in the back of the HUD with a custom color
 };
 
 typedef NS_ENUM(NSUInteger, SVProgressHUDAnimationType) {
+    /// 默认动画类型，自定义平面动画
     SVProgressHUDAnimationTypeFlat,     // default animation type, custom flat animation (indefinite animated ring)
+    /// iOS原生UIActivityIndicatorView
     SVProgressHUDAnimationTypeNative    // iOS native UIActivityIndicatorView
 };
 
@@ -41,12 +51,16 @@ typedef void (^SVProgressHUDDismissCompletion)(void);
 
 @interface SVProgressHUD : UIView
 
-#pragma mark - Customization
-
+#pragma mark - Customization 定制
+/// 默认是SVProgressHUDStyleLight
 @property (assign, nonatomic) SVProgressHUDStyle defaultStyle UI_APPEARANCE_SELECTOR;                   // default is SVProgressHUDStyleLight
+/// 默认是SVProgressHUDMaskTypeNone
 @property (assign, nonatomic) SVProgressHUDMaskType defaultMaskType UI_APPEARANCE_SELECTOR;             // default is SVProgressHUDMaskTypeNone
+/// 默认是SVProgressHUDAnimationTypeFlat
 @property (assign, nonatomic) SVProgressHUDAnimationType defaultAnimationType UI_APPEARANCE_SELECTOR;   // default is SVProgressHUDAnimationTypeFlat
+/// 如果没有，则使用默认窗口级别
 @property (strong, nonatomic, nullable) UIView *containerView;                              // if nil then use default window level
+/// 默认为CGSizeZero，可用于避免大量的调整大小的消息
 @property (assign, nonatomic) CGSize minimumSize UI_APPEARANCE_SELECTOR;                    // default is CGSizeZero, can be used to avoid resizing for a larger message
 @property (assign, nonatomic) CGFloat ringThickness UI_APPEARANCE_SELECTOR;                 // default is 2 pt
 @property (assign, nonatomic) CGFloat ringRadius UI_APPEARANCE_SELECTOR;                    // default is 18 pt
@@ -61,6 +75,7 @@ typedef void (^SVProgressHUDDismissCompletion)(void);
 @property (strong, nonatomic, nonnull) UIImage *infoImage UI_APPEARANCE_SELECTOR;           // default is the bundled info image provided by Freepik
 @property (strong, nonatomic, nonnull) UIImage *successImage UI_APPEARANCE_SELECTOR;        // default is the bundled success image provided by Freepik
 @property (strong, nonatomic, nonnull) UIImage *errorImage UI_APPEARANCE_SELECTOR;          // default is the bundled error image provided by Freepik
+/// 默认值为零，仅在设置了#define SV_APP_EXTENSIONS时使用
 @property (strong, nonatomic, nonnull) UIView *viewForExtension UI_APPEARANCE_SELECTOR;     // default is nil, only used if #define SV_APP_EXTENSIONS is set
 @property (assign, nonatomic) NSTimeInterval graceTimeInterval;                             // default is 0 seconds
 @property (assign, nonatomic) NSTimeInterval minimumDismissTimeInterval;                    // default is 5.0 seconds

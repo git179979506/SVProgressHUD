@@ -24,7 +24,7 @@ NSString * const SVProgressHUDDidAppearNotification = @"SVProgressHUDDidAppearNo
 NSString * const SVProgressHUDStatusUserInfoKey = @"SVProgressHUDStatusUserInfoKey";
 
 static const CGFloat SVProgressHUDParallaxDepthPoints = 10.0f;
-static const CGFloat SVProgressHUDUndefinedProgress = -1;
+static const CGFloat SVProgressHUDUndefinedProgress = -1; // 没有进度
 static const CGFloat SVProgressHUDDefaultAnimationDuration = 0.15f;
 static const CGFloat SVProgressHUDVerticalSpacing = 12.0f;
 static const CGFloat SVProgressHUDHorizontalSpacing = 12.0f;
@@ -203,6 +203,7 @@ static const CGFloat SVProgressHUDLabelSpacing = 8.0f;
 }
 
 + (void)showWithMaskType:(SVProgressHUDMaskType)maskType {
+    // 保存旧的mask type
     SVProgressHUDMaskType existingMaskType = [self sharedView].defaultMaskType;
     [self setDefaultMaskType:maskType];
     [self show];
@@ -744,6 +745,7 @@ static const CGFloat SVProgressHUDLabelSpacing = 8.0f;
 
 - (void)showProgress:(float)progress status:(NSString*)status {
     __weak SVProgressHUD *weakSelf = self;
+    // 主线程
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         __strong SVProgressHUD *strongSelf = weakSelf;
         if(strongSelf){
