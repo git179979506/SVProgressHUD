@@ -754,17 +754,21 @@ static const CGFloat SVProgressHUDLabelSpacing = 8.0f;
             }
             
             // Stop timer
+            // 停止计时器
             strongSelf.fadeOutTimer = nil;
             strongSelf.graceTimer = nil;
             
             // Update / Check view hierarchy to ensure the HUD is visible
+            // 更新/检查视图层次结构以确保HUD可见
             [strongSelf updateViewHierarchy];
             
             // Reset imageView and fadeout timer if an image is currently displayed
+            // 如果当前显示图像，则重置imageView和淡出定时器
             strongSelf.imageView.hidden = YES;
             strongSelf.imageView.image = nil;
             
             // Update text and set progress to the given value
+            // 更新文本并将进度设置为给定值
             strongSelf.statusLabel.hidden = status.length == 0;
             strongSelf.statusLabel.text = status;
             strongSelf.progress = progress;
